@@ -133,6 +133,9 @@ sudo rm -rf /tmp/gitolite-admin
 #==
 sudo apt-get install -y makepasswd # Needed to create a unique password non-interactively.
 userPassword=$(makepasswd --char=10) # Generate a random MySQL password
+echo "MySQL PASSWORD IS: \n\n"
+echo $userPassword
+echo "=======================\n\n"
 # Note that the lines below creates a cleartext copy of the random password in /var/cache/debconf/passwords.dat
 # This file is normally only readable by root and the password will be deleted by the package management system after install.
 echo mysql-server mysql-server/root_password password $userPassword | sudo debconf-set-selections
@@ -143,7 +146,7 @@ sudo apt-get install -y mysql-server mysql-client libmysqlclient-dev
 #== 6. GitLab
 #==
 cd /home/gitlab
-sudo -u gitlab -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab
+sudo -u gitlab -H git clone https://github.com/gitlabhq/gitlabhq.git /home/gitlab/gitlab
 cd /home/gitlab/gitlab
 # Checkout v4
 sudo -u gitlab -H git checkout 4-0-stable
